@@ -1,10 +1,31 @@
-import React from "react";
+/* eslint-disable no-unused-vars */
+/* eslint-disable react/prop-types */
+import {useState} from "react";
+
 const TodoForm =()=>{
+
+    const [value, setValue] = useState("");
+    const [category, setcategory] = useState("");
+
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        if(!value || !category) return;
+        setValue("");
+        setcategory("");
+
+    }
     return <div className="todo-form"> 
         <h2>Criar tarefa:</h2>
-        <form>
-            <input type="text" placeholder="Digite a tarefa"/>
-            <select>
+        <form onSubmit={handleSubmit}>
+            <input type="text" placeholder="Digite a tarefa" 
+            value={value}
+            onChange = {(e) => setValue(e.target.value)}
+            />
+            <select 
+            value={category}
+            onChange={(e) => setcategory(e.target.value)}
+            >
                 <option value="">Selecione a categoria</option>
                 <option value="Trabalho">Trabalho</option>
                 <option value="Estudo">Estudo</option>
@@ -13,7 +34,7 @@ const TodoForm =()=>{
                 <option value="Pagar">Pagar</option>
                 <option value="Compromisso">Compromisso</option>
             </select>
-            <button type="submit"> Salvar Tarefa</button>
+            <button type="submit"> Adicionar Tarefa</button>
         </form>
     </div>
 }

@@ -1,4 +1,6 @@
 /* eslint-disable react/jsx-key */
+/* eslint-disable no-unused-vars */
+/* eslint-disable react/prop-types */
 import { useState } from 'react'
 import Todo from './components/todo';
 import "./App.css"
@@ -30,7 +32,7 @@ function App() {
       <h1>Lista de Tarefas</h1>
       <div className='todo-list'>
         {todos.map((todo) => ( 
-          <Todo todo={todo}/>
+          <Todo key={todo.id} todo={todo}/>
         ))}
       </div>
       <TodoForm/>
