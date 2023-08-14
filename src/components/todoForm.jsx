@@ -2,17 +2,17 @@
 /* eslint-disable react/prop-types */
 import {useState} from "react";
 
-const TodoForm =()=>{
+const TodoForm =({addTodo})=>{
 
     const [value, setValue] = useState("");
-    const [category, setcategory] = useState("");
-
+    const [category, setCategory] = useState("");
 
     const handleSubmit = (e) => {
         e.preventDefault();
         if(!value || !category) return;
+        addTodo(value, category);
         setValue("");
-        setcategory("");
+        setCategory("");
 
     }
     return <div className="todo-form"> 
@@ -24,7 +24,7 @@ const TodoForm =()=>{
             />
             <select 
             value={category}
-            onChange={(e) => setcategory(e.target.value)}
+            onChange={(e) => setCategory(e.target.value)}
             >
                 <option value="">Selecione a categoria</option>
                 <option value="Trabalho">Trabalho</option>
@@ -38,6 +38,4 @@ const TodoForm =()=>{
         </form>
     </div>
 }
-
-
 export default TodoForm;
