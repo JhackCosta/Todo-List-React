@@ -7,6 +7,7 @@ import "./App.css"
 import Todo from './components/todo';
 import TodoForm from './components/todoForm';
 import Search from './components/search';
+import Filter from './components/Filter';
 
 
 function App() {
@@ -32,6 +33,8 @@ function App() {
   ]);
 
   const [search, setSearch] = useState("");
+  const [filter, setFilter] = useState("All");
+  const [sort, setSort] = useState("Crescente");
 
   const addTodo = (text, category) => {
     const newTodo = [...todos,{
@@ -55,13 +58,24 @@ function App() {
     setTodos(newTodos);
 
   }
-
   return (
     <div className='app'>
       <h1>Lista de Tarefas</h1>
       <Search search={search} setSearch={setSearch}></Search>
+      <Filter filter={filter} setFilter={setFilter}/>
       <div className='todo-list'>
-        {todos.filter((todo)=>todo.text.toLowerCase().includes(search.toLowerCase())).map((todo) => ( 
+        {todos
+          .filter((todo) => 
+            filter === "All"
+              ? true 
+              : filter === "Complete" 
+              ? todo.isComplete 
+              : !todo.isComplete
+          )
+          .filter((todo)=>
+          todo.text.toLowerCase().includes(search.toLowerCase())
+          )
+          .map((todo) => ( 
           <Todo key={todo.id} 
             todo={todo} 
             removeTodo={removeTodo}
