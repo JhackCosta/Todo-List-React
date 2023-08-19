@@ -2,9 +2,12 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import { useState } from 'react'
-import Todo from './components/todo';
 import "./App.css"
+ 
+import Todo from './components/todo';
 import TodoForm from './components/todoForm';
+import Search from './components/search';
+
 
 function App() {
   const [todos, setTodos] = useState([
@@ -27,6 +30,9 @@ function App() {
       isComplete: false
     }
   ]);
+
+  const [search, setSearch] = useState("");
+
   const addTodo = (text, category) => {
     const newTodo = [...todos,{
       id: Math.floor(Math.random() * 10000),
@@ -53,9 +59,14 @@ function App() {
   return (
     <div className='app'>
       <h1>Lista de Tarefas</h1>
+      <Search search={search} setSearch={setSearch}></Search>
       <div className='todo-list'>
-        {todos.map((todo) => ( 
-          <Todo key={todo.id} todo={todo} removeTodo={removeTodo} completeTodo={completeTodo}/>
+        {todos.filter((todo)=>todo.text.toLowerCase().includes(search.toLowerCase())).map((todo) => ( 
+          <Todo key={todo.id} 
+            todo={todo} 
+            removeTodo={removeTodo}
+            completeTodo={completeTodo}
+          />
         ))}
       </div>
       <TodoForm addTodo = {addTodo}/>
