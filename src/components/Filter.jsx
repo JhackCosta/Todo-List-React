@@ -1,5 +1,5 @@
-// eslint-disable-next-line react/prop-types
-const Filter=({filter, setFilter}) =>{
+// eslint-disable-next-line react/prop-types, no-unused-vars
+const Filter=({filter, setFilter, setSort}) =>{
     return (
         <div className="filter">
             <h2>Filtrar:</h2>
@@ -14,13 +14,10 @@ const Filter=({filter, setFilter}) =>{
                 </div>
                 <div>
                     <p>Ordem de Apresentação:</p>
-                    <button>Crescente</button>
-                    <button>Decrescente</button>
+                    <button onClick={()=> setSort("Asc")}>Asc</button>
+                    <button onClick={()=> setSort("Desc")}>Desc</button>
                 </div>
-
-
             </div>
-
         </div>
     );
 };

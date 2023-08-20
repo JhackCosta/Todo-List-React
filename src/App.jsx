@@ -34,7 +34,7 @@ function App() {
 
   const [search, setSearch] = useState("");
   const [filter, setFilter] = useState("All");
-  const [sort, setSort] = useState("Crescente");
+  const [sort, setSort] = useState("Asc");
 
   const addTodo = (text, category) => {
     const newTodo = [...todos,{
@@ -62,7 +62,7 @@ function App() {
     <div className='app'>
       <h1>Lista de Tarefas</h1>
       <Search search={search} setSearch={setSearch}></Search>
-      <Filter filter={filter} setFilter={setFilter}/>
+      <Filter filter={filter} setFilter={setFilter} setSort = {setSort} />
       <div className='todo-list'>
         {todos
           .filter((todo) => 
@@ -75,6 +75,13 @@ function App() {
           .filter((todo)=>
           todo.text.toLowerCase().includes(search.toLowerCase())
           )
+          .sort((a, b) => {
+            if (sort === "Asc") {
+              return a.text.localeCompare(b.text);
+            } else {
+              return b.text.localeCompare(a.text);
+            }
+          })
           .map((todo) => ( 
           <Todo key={todo.id} 
             todo={todo} 
@@ -87,5 +94,6 @@ function App() {
     </div>
   )
 }
+
 
 export default App
